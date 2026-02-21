@@ -12,12 +12,14 @@ public abstract class UserServiceImpl implements UserService {
 
     public UserServiceImpl(User[] initialArray) {
         this.repository = initialArray;
+        for (User u:initialArray)
+            size++;
     }
 
     @Override
     public void add(User u) {
         if (u == null) return;
-        if (size == repository.length) repository = Arrays.copyOf(repository, (size == 0) ? 1 : size * 2);
+        if (size >= repository.length) repository = Arrays.copyOf(repository, (size == 0) ? 1 : size * 2);
         repository[size] = u;
         size++;
     }

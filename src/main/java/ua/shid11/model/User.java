@@ -6,6 +6,12 @@ public abstract class User {
     private String surname;
     private static int counter = 1;
 
+    public User(String name, String surname) {
+            this.name = (name != null) ? name : "Unknown";
+            this.surname = (surname != null) ? surname : "Unknown";
+            this.id = counter++;
+    }
+
     public int getId() {
         return id;
     }
@@ -25,12 +31,6 @@ public abstract class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public User(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-        this.id = counter++;
     }
 
     @Override
