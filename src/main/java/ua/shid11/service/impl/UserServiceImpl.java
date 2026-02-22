@@ -12,8 +12,6 @@ public abstract class UserServiceImpl implements UserService {
 
     public UserServiceImpl(User[] initialArray) {
         this.repository = initialArray;
-        for (User u:initialArray)
-            size++;
     }
 
     @Override
