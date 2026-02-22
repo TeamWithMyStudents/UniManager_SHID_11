@@ -1,4 +1,27 @@
 package ua.shid11.service.impl;
 
-public class StudentServiceImpl {
+import ua.shid11.model.Student;
+import ua.shid11.model.User;
+import ua.shid11.service.StudentService;
+
+
+public class StudentServiceImpl extends UserServiceImpl implements StudentService {
+    public StudentServiceImpl() {
+        super(new Student[5]);
+    }
+
+    @Override
+    public void findByGroup(String groupName) {
+        if (groupName == null) return;
+
+        boolean found = false;
+        User[] all = getAll();
+        for (User u : all) {
+            if (u instanceof Student && groupName.equals(((Student) u).getGroup())) {
+                System.out.println(u);
+                found = true;
+            }
+        }
+        if (!found) System.out.println("No students found in group: " + groupName);
+    }
 }
