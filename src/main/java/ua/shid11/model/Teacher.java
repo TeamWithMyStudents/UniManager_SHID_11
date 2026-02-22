@@ -7,9 +7,24 @@ public class Teacher extends User {
 
     public Teacher(String name, String surname, String department, String degree, double salary) {
         super(name, surname);
-        this.department = department;
-        this.degree = degree;
-        this.salary = salary;
+
+        if (department == null || department.isBlank()) {
+            this.department = "Unknown";
+        } else {
+            this.department = department;
+        }
+
+        if (degree == null || degree.isBlank()) {
+            this.degree = "Unknown";
+        } else {
+            this.degree = degree;
+        }
+
+        if (salary > 0) {
+            this.salary = salary;
+        } else {
+            this.salary = 0;
+        }
     }
 
     public String getDepartment() {

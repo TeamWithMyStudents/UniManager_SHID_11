@@ -13,7 +13,7 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
     public void calculateTotalSalary() {
         double total = 0;
 
-        for(User user : getAll()) {
+        for (User user : getAll()) {
             Teacher teacher = (Teacher) user;
             total += teacher.getSalary();
         }
