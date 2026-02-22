@@ -1,6 +1,6 @@
 package ua.shid11.model;
 
-public class Teacher extends User{
+public class Teacher extends User {
     private String department;
     private String degree;
     private double salary;
