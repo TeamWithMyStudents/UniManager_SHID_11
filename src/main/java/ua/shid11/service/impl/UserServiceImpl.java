@@ -16,8 +16,12 @@ public abstract class UserServiceImpl implements UserService {
 
     @Override
     public void add(User u) {
-        if (u == null) return;
-        if (size >= repository.length) repository = Arrays.copyOf(repository, (size == 0) ? 1 : size * 2);
+        if (u == null) {
+            return;
+        }
+        if (size >= repository.length) {
+            repository = Arrays.copyOf(repository, (size == 0) ? 1 : size * 2);
+        }
         repository[size] = u;
         size++;
     }
@@ -32,7 +36,9 @@ public abstract class UserServiceImpl implements UserService {
             }
             size--;
             repository[size] = null;
-        } else System.out.println("Id not found");
+        } else {
+            System.out.println("Id not found");
+        }
     }
 
 
@@ -44,8 +50,9 @@ public abstract class UserServiceImpl implements UserService {
 
     private int findId(int id) {
         for (int i = 0; i < size; i++) {
-            if (repository[i] != null && id == repository[i].getId())
+            if (repository[i] != null && id == repository[i].getId()) {
                 return i;
+            }
         }
         return -1;
     }

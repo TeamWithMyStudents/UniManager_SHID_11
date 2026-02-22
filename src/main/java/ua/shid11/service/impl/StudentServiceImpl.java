@@ -12,16 +12,19 @@ public class StudentServiceImpl extends UserServiceImpl implements StudentServic
 
     @Override
     public void findByGroup(String groupName) {
-        if (groupName == null) return;
+        if (groupName == null) {
+            return;
+        }
 
         boolean found = false;
-        User[] all = getAll();
-        for (User u : all) {
+        for (User u : getAll()) {
             if (u instanceof Student && groupName.equals(((Student) u).getGroup())) {
                 System.out.println(u);
                 found = true;
             }
         }
-        if (!found) System.out.println("No students found in group: " + groupName);
+        if (!found) {
+            System.out.println("No students found in group: " + groupName);
+        }
     }
 }
