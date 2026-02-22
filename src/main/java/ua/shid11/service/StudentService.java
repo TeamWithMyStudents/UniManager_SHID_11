@@ -4,5 +4,5 @@ import ua.shid11.model.Student;
 
 public interface StudentService extends UserService {
 
-    Student[] findByGroup(String groupName);
+    void findByGroup(String groupName);
 }
