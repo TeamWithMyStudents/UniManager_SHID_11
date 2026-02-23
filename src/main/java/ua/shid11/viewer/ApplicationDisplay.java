@@ -5,44 +5,55 @@ import ua.shid11.controller.StudentController;
 import java.util.Scanner;
 
 public class ApplicationDisplay {
-    private final StudentController controller = new StudentController();
-    private final Scanner scanner = new Scanner(System.in);
+    private static final StudentController controller = new StudentController();
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public void start() {
+    public static void start() {
         while (true) {
-            System.out.println("---- Menu Options: ----");
-            System.out.println("1. Add Student");
-            System.out.println("2. Show All Students");
-            System.out.println("3. Delete Student by ID");
-            System.out.println("4. Exit");
-            System.out.print("Enter choice: ");
+            System.out.print("""
+                    ---- Menu Options: ----
+                    1. Add Student
+                    2. Show All Students
+                    3. Delete Student by ID
+                    4. Exit
+                    Enter choice:\s""");
 
             String choice = scanner.nextLine();
 
             switch (choice) {
-                case "1":
+                case "1" -> {
                     System.out.print("Enter Student (with space): ");
                     String input = scanner.nextLine();
-                    controller.create(input);
-                    break;
-                case "2":
-                    controller.printAll();
-                    break;
-                case "3":
-                    System.out.print("Enter Student ID: ");
-                    try {
-                        int id = Integer.parseInt(scanner.nextLine());
-                        controller.delete(id);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid Student ID (ID must be number)");
+                    String[] parts = input.trim().split("\\s+");
+
+                    if (parts.length < 3) {
+                        System.out.println("Required: surname, name, group");
                     }
-                    break;
-                case "4":
+                    String surname = parts[1];
+                    String name = parts[0];
+                    String group = parts[parts.length - 1];
+                    controller.create(surname, name, group);
+
+                }
+                case "2" -> controller.printAll();
+                case "3" -> {
+                    System.out.print("Enter Student ID: ");
+                    if (!scanner.hasNextInt()) {
+                        System.out.println("Invalid Student ID (ID must be number)");
+                        scanner.nextLine();
+                    }
+                    int id = scanner.nextInt();
+                    scanner.nextLine();
+                    controller.delete(id);
+
+                }
+                case "4" -> {
                     System.out.println("Exit");
-                    return;
-                default:
-                    System.out.println("Invalid choice");
+                    System.exit(0);
+                }
+                default -> System.out.println("Invalid choice");
             }
+
         }
     }
 
