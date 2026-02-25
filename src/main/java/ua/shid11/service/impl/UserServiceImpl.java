@@ -3,15 +3,15 @@ package ua.shid11.service.impl;
 import ua.shid11.model.User;
 import ua.shid11.service.UserService;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class UserServiceImpl implements UserService {
-    protected User[] repository;
-    private int size = 0;
+    protected List<User> repository;
 
 
-    public UserServiceImpl(User[] initialArray) {
-        this.repository = initialArray;
+    public UserServiceImpl() {
+        this.repository = new ArrayList<>();
     }
 
     @Override
@@ -19,11 +19,7 @@ public abstract class UserServiceImpl implements UserService {
         if (u == null) {
             return;
         }
-        if (size >= repository.length) {
-            repository = Arrays.copyOf(repository, (size == 0) ? 1 : size * 2);
-        }
-        repository[size] = u;
-        size++;
+        repository.add(u);
     }
 
     @Override
@@ -31,11 +27,7 @@ public abstract class UserServiceImpl implements UserService {
         int index = findId(id);
 
         if (index != -1) {
-            for (int i = index; i < size - 1; i++) {
-                repository[i] = repository[i + 1];
-            }
-            size--;
-            repository[size] = null;
+           repository.remove(index);
         } else {
             System.out.println("Id not found");
         }
@@ -43,14 +35,14 @@ public abstract class UserServiceImpl implements UserService {
 
 
     @Override
-    public User[] getAll() {
-        return Arrays.copyOf(repository, size);
+    public List<User> getAll() {
+        return repository;
     }
 
 
     private int findId(int id) {
-        for (int i = 0; i < size; i++) {
-            if (repository[i] != null && id == repository[i].getId()) {
+        for (int i = 0; i < repository.size(); i++) {
+            if (repository.get(i) != null && id == repository.get(i).getId()) {
                 return i;
             }
         }

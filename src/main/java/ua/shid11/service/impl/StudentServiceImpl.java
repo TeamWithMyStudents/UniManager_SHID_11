@@ -7,7 +7,7 @@ import ua.shid11.service.StudentService;
 
 public class StudentServiceImpl extends UserServiceImpl implements StudentService {
     public StudentServiceImpl() {
-        super(new Student[5]);
+        super();
     }
 
     @Override
