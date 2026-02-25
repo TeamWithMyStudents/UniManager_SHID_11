@@ -42,7 +42,7 @@ public class ApplicationDisplay {
                         System.out.println("Invalid Student ID (ID must be number)");
                         scanner.nextLine();
                     }
-                    int id = scanner.nextInt();
+                    int id = Integer.parseInt(scanner.nextLine());
                     scanner.nextLine();
                     controller.delete(id);
 
