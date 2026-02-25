@@ -6,7 +6,7 @@ import ua.shid11.service.TeacherService;
 
 public class TeacherServiceImpl extends UserServiceImpl implements TeacherService {
     public TeacherServiceImpl() {
-        super(new Teacher[5]);
+        super();
     }
 
     @Override
