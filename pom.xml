@@ -27,7 +27,8 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ua.shid11.Main</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>ua.shid11.UniManager</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
