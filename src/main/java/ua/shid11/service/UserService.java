@@ -8,4 +8,9 @@ public interface UserService {
     void delete(int id);
 
     User[] getAll();
+
+    void findByName(String query);
+
+    void sortBySurname();
+
 }
