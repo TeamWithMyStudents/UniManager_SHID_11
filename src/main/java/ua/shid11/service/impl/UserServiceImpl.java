@@ -74,10 +74,9 @@ public abstract class UserServiceImpl implements UserService {
                 found = true;
             }
             }
-                if(!found) {
+            if (!found) {
                     System.out.println("No user found with query: " + query);
-
-                }
+            }
     }
     @Override
     public void sortBySurname() {
