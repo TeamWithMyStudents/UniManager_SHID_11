@@ -47,3 +47,6 @@ The application strictly follows the **Model-View-Controller** design pattern, f
 1. Clone the repository:
    ```bash
    git clone [https://github.com/Demyd06/UniManager_SHID_11.git](https://github.com/Demyd06/UniManager_SHID_11.git)
+   
+### CodeRebbit Integration
+   ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/TeamWithMyStudents/UniManager_SHID_11?utm_source=oss&utm_medium=github&utm_campaign=TeamWithMyStudents%2FUniManager_SHID_11&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
