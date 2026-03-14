@@ -85,7 +85,9 @@ public abstract class UserServiceImpl implements UserService {
         Arrays.sort(users, new Comparator<>() {
             @Override
             public int compare(User u1, User u2) {
-                return uaCollator.compare(u1.getSurname(), u2.getSurname());
+                String s1 = (u1.getSurname() == null) ? "" : u1.getSurname();
+                String s2 = (u2.getSurname() == null) ? "" : u2.getSurname();
+                return uaCollator.compare(s1, s2);
             }
         });
         for (User u : users) {
