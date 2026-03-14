@@ -11,7 +11,7 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
 
 
     @Override
-    public void calculateTotalSalary() {
+    public double calculateTotalSalary() {
         double total = 0;
 
         for (User user : getAll()) {
@@ -19,7 +19,8 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
             total += teacher.getSalary();
         }
 
-        System.out.println("Total University Budget: " + total);
+        System.out.println("Total salary = " + total);
+        return total;
     }
 
     @Override
