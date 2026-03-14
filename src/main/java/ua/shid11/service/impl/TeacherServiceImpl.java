@@ -49,7 +49,7 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
             System.out.println("Invalid user type");
             return;
         }
-        if (teacher.getSalary() < 0) {
+        if (teacher.getSalary() <= 0) {
                 System.out.println("Invalid Salary");
                 return;
             }
