@@ -24,7 +24,7 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
 
     @Override
     public void filterByDegree(String degree) {
-        if (degree == null) {
+        if (degree == null || degree.isBlank()) {
             System.out.println("Degree cannot be empty");
             return;
         }
@@ -33,7 +33,7 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
 
         for (User user : getAll()) {
             Teacher teacher = (Teacher) user;
-            if (teacher.getDegree() != null && teacher.getDegree().equals(degree)) {
+            if (teacher.getDegree() != null && teacher.getDegree().equalsIgnoreCase(degree.trim())) {
                 System.out.println(teacher);
                 found = true;
             }
