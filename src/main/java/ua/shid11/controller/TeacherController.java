@@ -11,7 +11,6 @@ public class TeacherController {
     public void create(String name, String surname, String department, String degree, double salary) {
         Teacher teacher = new Teacher(name, surname, department, degree, salary);
         service.add(teacher);
-        System.out.println("Teacher created");
     }
 
     public void delete(int id) {

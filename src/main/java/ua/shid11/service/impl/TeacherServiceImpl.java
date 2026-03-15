@@ -55,5 +55,6 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
                 return;
             }
             super.add(user);
+            System.out.println("Teacher created");
         }
     }
