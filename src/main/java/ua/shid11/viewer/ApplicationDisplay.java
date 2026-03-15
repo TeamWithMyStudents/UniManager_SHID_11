@@ -90,7 +90,7 @@ public class ApplicationDisplay {
 
     private void teacherSubMenu() {
         while (true) {
-            System.out.println("""
+            System.out.print("""
                     
                     ---- Teacher Menu ----
                     1. Add Teacher
