@@ -16,14 +16,13 @@ public class ApplicationDisplay {
 
     private void mainMenu() {
         while (true) {
-            System.out.println("""
+            System.out.print("""
                     
                     ===== MAIN MENU =====
                     1. Student Management
                     2. Teacher Management
                     0. Exit
-                    Enter choice:
-                    """);
+                    Enter choice:\s""");
 
             String choice = scanner.nextLine();
 
@@ -42,11 +41,12 @@ public class ApplicationDisplay {
     private void studentSubMenu() {
         while (true) {
             System.out.print("""
+                    
                     ---- Student Menu ----
                     1. Add Student
                     2. Show All Students
                     3. Delete Student by ID
-                    4. Exit
+                    0. Exit
                     Enter choice:\s""");
 
             String choice = scanner.nextLine();
@@ -61,8 +61,8 @@ public class ApplicationDisplay {
                         System.out.println("Required: surname, name, group");
                         continue;
                     }
-                    String surname = parts[1];
-                    String name = parts[0];
+                    String surname = parts[0];
+                    String name = parts[1];
                     String group = parts[parts.length - 1];
                     studentController.create(surname, name, group);
 
@@ -79,9 +79,8 @@ public class ApplicationDisplay {
                     studentController.delete(id);
 
                 }
-                case "4" -> {
-                    System.out.println("Exit");
-                    System.exit(0);
+                case "0" -> {
+                    return;
                 }
                 default -> System.out.println("Invalid choice");
             }
@@ -91,7 +90,7 @@ public class ApplicationDisplay {
 
     private void teacherSubMenu() {
         while (true) {
-            System.out.println("""
+            System.out.print("""
                     
                     ---- Teacher Menu ----
                     1. Add Teacher
@@ -99,8 +98,7 @@ public class ApplicationDisplay {
                     3. Calculate Budget
                     4. Filter by Degree
                     0. Exit
-                    Enter choice:
-                    """);
+                    Enter choice:\s""");
 
             String choice = scanner.nextLine();
 
