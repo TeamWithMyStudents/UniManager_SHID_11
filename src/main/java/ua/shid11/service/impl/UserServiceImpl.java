@@ -16,10 +16,9 @@ public abstract class UserServiceImpl implements UserService {
 
     @Override
     public void add(User u) {
-        if (u == null) {
-            return;
+        if (u != null) {
+            repository.add(u);
         }
-        repository.add(u);
     }
 
     @Override
@@ -28,15 +27,13 @@ public abstract class UserServiceImpl implements UserService {
 
         if (index != -1) {
            repository.remove(index);
-        } else {
-            System.out.println("Id not found");
         }
     }
 
 
     @Override
     public List<User> getAll() {
-        return repository;
+        return new ArrayList<>(repository);
     }
 
 
