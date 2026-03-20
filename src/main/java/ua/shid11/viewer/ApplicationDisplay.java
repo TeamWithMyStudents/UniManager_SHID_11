@@ -53,12 +53,12 @@ public class ApplicationDisplay {
 
             switch (choice) {
                 case "1" -> {
-                    System.out.print("Enter Student (with space): ");
+                    System.out.print("Enter Student (Name Surname Group): ");
                     String input = scanner.nextLine();
                     String[] parts = input.trim().split("\\s+");
 
                     if (parts.length < 3) {
-                        System.out.println("Required: surname, name, group");
+                        System.out.println("Required: name, surname, group");
                         continue;
                     }
                     String surname = parts[0];
@@ -75,7 +75,6 @@ public class ApplicationDisplay {
                         scanner.nextLine();
                     }
                     int id = Integer.parseInt(scanner.nextLine());
-                    scanner.nextLine();
                     studentController.delete(id);
 
                 }
