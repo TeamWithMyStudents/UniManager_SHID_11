@@ -70,12 +70,13 @@ public class ApplicationDisplay {
                 case "2" -> studentController.printAll();
                 case "3" -> {
                     System.out.print("Enter Student ID: ");
-                    if (!scanner.hasNextInt()) {
-                        System.out.println("Invalid Student ID (ID must be number)");
-                        scanner.nextLine();
+                    String input = scanner.nextLine();
+                    try {
+                        int id = Integer.parseInt(input);
+                        studentController.delete(id);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Student ID must be an integer number!");
                     }
-                    int id = Integer.parseInt(scanner.nextLine());
-                    studentController.delete(id);
 
                 }
                 case "0" -> {
