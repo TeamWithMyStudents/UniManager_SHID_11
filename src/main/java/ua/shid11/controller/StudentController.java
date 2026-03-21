@@ -19,8 +19,8 @@ public class StudentController {
     }
 
     public void printAll() {
-        for (User user : service.getAll()) {
-            System.out.println(user);
+        for (Student student : service.getAll()) {
+            System.out.println(student);
         }
     }
 }

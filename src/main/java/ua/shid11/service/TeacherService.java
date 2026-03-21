@@ -1,7 +1,9 @@
 package ua.shid11.service;
 
-public interface TeacherService extends  UserService {
-    void calculateTotalSalary();
+import ua.shid11.model.Teacher;
+
+public interface TeacherService extends  UserService<Teacher> {
+    double calculateTotalSalary();
 
     void filterByDegree(String degree);
 

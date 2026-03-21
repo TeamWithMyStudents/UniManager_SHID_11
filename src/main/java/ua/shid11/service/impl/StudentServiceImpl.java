@@ -1,11 +1,10 @@
 package ua.shid11.service.impl;
 
 import ua.shid11.model.Student;
-import ua.shid11.model.User;
 import ua.shid11.service.StudentService;
 
 
-public class StudentServiceImpl extends UserServiceImpl implements StudentService {
+public class StudentServiceImpl extends UserServiceImpl<Student> implements StudentService {
     public StudentServiceImpl() {
         super();
     }
@@ -13,13 +12,13 @@ public class StudentServiceImpl extends UserServiceImpl implements StudentServic
     @Override
     public void findByGroup(String groupName) {
         if (groupName == null) {
-            return;
+            throw new IllegalArgumentException("Group name must not be null");
         }
 
         boolean found = false;
-        for (User u : getAll()) {
-            if (u instanceof Student && groupName.equals(((Student) u).getGroup())) {
-                System.out.println(u);
+        for (Student student : repository) {
+            if (groupName.equals(student.getGroup())) {
+                System.out.println(student);
                 found = true;
             }
         }
