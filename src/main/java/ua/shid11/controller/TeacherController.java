@@ -1,7 +1,6 @@
 package ua.shid11.controller;
 
 import ua.shid11.model.Teacher;
-import ua.shid11.model.User;
 import ua.shid11.service.TeacherService;
 import ua.shid11.service.impl.TeacherServiceImpl;
 
@@ -18,8 +17,8 @@ public class TeacherController {
     }
 
     public void printAll() {
-        for (User user : service.getAll()) {
-            System.out.println(user);
+        for (Teacher teacher : service.getAll()) {
+            System.out.println(teacher);
         }
     }
 

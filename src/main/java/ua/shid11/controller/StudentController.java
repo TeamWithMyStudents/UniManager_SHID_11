@@ -1,7 +1,6 @@
 package ua.shid11.controller;
 
 import ua.shid11.model.Student;
-import ua.shid11.model.User;
 import ua.shid11.service.StudentService;
 import ua.shid11.service.impl.StudentServiceImpl;
 
@@ -19,8 +18,8 @@ public class StudentController {
     }
 
     public void printAll() {
-        for (User user : service.getAll()) {
-            System.out.println(user);
+        for (Student student : service.getAll()) {
+            System.out.println(student);
         }
     }
 }

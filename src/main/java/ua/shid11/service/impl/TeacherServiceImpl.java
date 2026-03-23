@@ -1,12 +1,11 @@
 package ua.shid11.service.impl;
 
 import ua.shid11.model.Teacher;
-import ua.shid11.model.User;
 import ua.shid11.service.TeacherService;
 
-public class TeacherServiceImpl extends UserServiceImpl implements TeacherService {
+public class TeacherServiceImpl extends UserServiceImpl<Teacher> implements TeacherService {
     public TeacherServiceImpl() {
-        super(new Teacher[5]);
+        super();
     }
 
 
@@ -14,27 +13,23 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
     public double calculateTotalSalary() {
         double total = 0;
 
-        for (User user : getAll()) {
-            Teacher teacher = (Teacher) user;
+        for (Teacher teacher : getAll()) {
             total += teacher.getSalary();
         }
 
-        System.out.println("Total salary = " + total);
         return total;
     }
 
     @Override
     public void filterByDegree(String degree) {
-        if (degree == null) {
-            System.out.println("Degree cannot be empty");
-            return;
+        if (degree == null || degree.isBlank()) {
+            throw new IllegalArgumentException("Degree cannot be empty");
         }
 
         boolean found = false;
 
-        for (User user : getAll()) {
-            Teacher teacher = (Teacher) user;
-            if (teacher.getDegree() != null && teacher.getDegree().equalsIgnoreCase(degree.trim())) {
+        for (Teacher teacher : getAll()) {
+            if (teacher.getDegree() != null && teacher.getDegree().equals(degree)) {
                 System.out.println(teacher);
                 found = true;
             }
@@ -45,16 +40,10 @@ public class TeacherServiceImpl extends UserServiceImpl implements TeacherServic
     }
 
     @Override
-    public void add(User user) {
-        if (!(user instanceof Teacher teacher)) {
-            System.out.println("Invalid user type");
-            return;
-        }
+    public void add(Teacher teacher) {
         if (teacher.getSalary() <= 0) {
-                System.out.println("Invalid Salary");
-                return;
-            }
-            super.add(user);
-            System.out.println("Teacher created");
+            throw new IllegalArgumentException("Invalid Salary");
         }
+        super.add(teacher);
     }
+}

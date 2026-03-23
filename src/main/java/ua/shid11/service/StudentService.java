@@ -1,7 +1,9 @@
 package ua.shid11.service;
 
 
-public interface StudentService extends UserService {
+import ua.shid11.model.Student;
+
+public interface StudentService extends UserService<Student> {
 
     void findByGroup(String groupName);
 }

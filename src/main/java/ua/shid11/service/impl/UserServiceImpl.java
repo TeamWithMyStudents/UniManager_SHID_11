@@ -3,94 +3,66 @@ package ua.shid11.service.impl;
 import ua.shid11.model.User;
 import ua.shid11.service.UserService;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.text.Collator;
-import java.util.Comparator;
 
-public abstract class UserServiceImpl implements UserService {
-    protected User[] repository;
-    private int size = 0;
+public abstract class UserServiceImpl<T extends User> implements UserService<T> {
+    protected List<T> repository;
 
-
-    public UserServiceImpl(User[] initialArray) {
-        this.repository = initialArray;
+    public UserServiceImpl() {
+        this.repository = new ArrayList<>();
     }
 
     @Override
-    public void add(User u) {
+    public void add(T u) {
         if (u == null) {
-            return;
+            throw new IllegalArgumentException("Cannot add a null user to the repository");
         }
-        if (size >= repository.length) {
-            repository = Arrays.copyOf(repository, (size == 0) ? 1 : size * 2);
-        }
-        repository[size] = u;
-        size++;
+        repository.add(u);
     }
 
     @Override
     public void delete(int id) {
-        int index = findId(id);
-
-        if (index != -1) {
-            for (int i = index; i < size - 1; i++) {
-                repository[i] = repository[i + 1];
-            }
-            size--;
-            repository[size] = null;
-        } else {
-            System.out.println("Id not found");
-        }
+        repository.removeIf(u -> u != null && u.getId() == id);
     }
-
 
     @Override
-    public User[] getAll() {
-        return Arrays.copyOf(repository, size);
-    }
-
-
-    private int findId(int id) {
-        for (int i = 0; i < size; i++) {
-            if (repository[i] != null && id == repository[i].getId()) {
-                return i;
-            }
-        }
-        return -1;
+    public List<T> getAll() {
+        return new ArrayList<>(repository);
     }
 
     @Override
     public void findByName(String query) {
-
         if (query == null || query.isBlank()) {
-            System.out.println("Search query cannot be empty");
-            return;
+            throw new IllegalArgumentException("Query must not be null");
         }
+
         boolean found = false;
-        for (User u : getAll()) {
-            if (u.getName() != null && u.getName().toLowerCase().contains(query.toLowerCase())) {
-                System.out.println(u);
+        for (T t : repository) {
+            if (t.getName() != null && t.getName().toLowerCase().contains(query.toLowerCase())) {
+                System.out.println(t);
                 found = true;
             }
-            }
-            if (!found) {
-                    System.out.println("No user found with query: " + query);
-            }
+        }
+        if (!found) {
+            System.out.println("No user found with query: " + query);
+        }
     }
+
     @Override
     public void sortBySurname() {
         Collator uaCollator = Collator.getInstance(new Locale("uk", "UA"));
-        User[] users = getAll();
-        Arrays.sort(users, new Comparator<>() {
-            @Override
-            public int compare(User u1, User u2) {
-                String s1 = (u1.getSurname() == null) ? "" : u1.getSurname();
-                String s2 = (u2.getSurname() == null) ? "" : u2.getSurname();
-                return uaCollator.compare(s1, s2);
-            }
+        List<T> users = getAll();
+
+        users.sort((u1, u2) -> {
+            String s1 = (u1.getSurname() == null) ? "" : u1.getSurname();
+            String s2 = (u2.getSurname() == null) ? "" : u2.getSurname();
+            return uaCollator.compare(s1, s2);
         });
-        for (User u : users) {
+
+        for (T u : users) {
             System.out.println(u);
         }
     }
