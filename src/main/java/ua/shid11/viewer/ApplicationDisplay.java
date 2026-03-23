@@ -53,12 +53,12 @@ public class ApplicationDisplay {
 
             switch (choice) {
                 case "1" -> {
-                    System.out.print("Enter Student (with space): ");
+                    System.out.print("Enter Student (Name Surname Group): ");
                     String input = scanner.nextLine();
                     String[] parts = input.trim().split("\\s+");
 
                     if (parts.length < 3) {
-                        System.out.println("Required: surname, name, group");
+                        System.out.println("Required: name, surname, group");
                         continue;
                     }
                     String surname = parts[0];
@@ -70,13 +70,13 @@ public class ApplicationDisplay {
                 case "2" -> studentController.printAll();
                 case "3" -> {
                     System.out.print("Enter Student ID: ");
-                    if (!scanner.hasNextInt()) {
-                        System.out.println("Invalid Student ID (ID must be number)");
-                        scanner.nextLine();
+                    String input = scanner.nextLine();
+                    try {
+                        int id = Integer.parseInt(input);
+                        studentController.delete(id);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Student ID must be an integer number!");
                     }
-                    int id = Integer.parseInt(scanner.nextLine());
-                    scanner.nextLine();
-                    studentController.delete(id);
 
                 }
                 case "0" -> {
