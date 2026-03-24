@@ -1,4 +1,5 @@
 package ua.shid11.model;
+
 import ua.shid11.model.enums.StudentRole;
 
 public class Student extends User {
@@ -10,10 +11,12 @@ public class Student extends User {
         this.group = group;
         this.role = StudentRole.REGULAR;
     }
-    public StudentRole getRole(){
+
+    public StudentRole getRole() {
         return role;
     }
-    public void setRole(StudentRole role){
+
+    public void setRole(StudentRole role) {
         this.role = role;
     }
 
@@ -33,8 +36,8 @@ public class Student extends User {
                 "id=" + getId() +
                 ", name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
-                "group='" + group + '\'' +
-                ", role=" + role.getDisplayName() + '\'' +
+                ", group='" + group + '\'' +
+                ", role='" + role.getDisplayName() + '\'' +
                 '}';
     }
 }

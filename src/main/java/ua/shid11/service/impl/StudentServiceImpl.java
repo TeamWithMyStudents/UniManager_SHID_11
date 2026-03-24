@@ -44,8 +44,8 @@ public class StudentServiceImpl extends UserServiceImpl<Student> implements Stud
         if (target == null) {
             throw new StudentNotFoundException("Student not found");
         }
-        if (target.getGroup()==null || target.getGroup().isBlank()) {
-            throw new StudentNotFoundException("Student has invalid group");
+        if (target.getGroup() == null || target.getGroup().isBlank()) {
+            throw new IllegalStateException("Student has invalid group");
         }
         if (target.getRole() == StudentRole.STAROSTA) {
             System.out.println("Already a Starosta");
@@ -61,8 +61,10 @@ public class StudentServiceImpl extends UserServiceImpl<Student> implements Stud
             }
         }
         target.setRole(StudentRole.STAROSTA);
-        System.out.println("Starosta assigned" + target.getName() + " is now Starosta in group " + group);
+        System.out.println("Starosta assigned: " + target.getName() + " is now Starosta in group: " + group);
     }
+
+    @Override
     public void assignDeputy(int studentId) {
         if (studentId <= 0) {
             throw new IllegalArgumentException("Invalid student id");
@@ -77,25 +79,25 @@ public class StudentServiceImpl extends UserServiceImpl<Student> implements Stud
         if (target == null) {
             throw new StudentNotFoundException("Student not found");
         }
-        if (target.getGroup()==null || target.getGroup().isBlank()) {
+        if (target.getGroup() == null || target.getGroup().isBlank()) {
             throw new StudentNotFoundException("Student has invalid group");
         }
         if (target.getRole() == StudentRole.STAROSTA) {
             throw new IllegalStateException("Starosta cannot be deputy");
         }
-        if (target.getRole() == StudentRole.DEPUTY_STAROSTE) {
+        if (target.getRole() == StudentRole.DEPUTY_STAROSTA) {
             System.out.println("Already a Deputy");
             return;
         }
         String group = target.getGroup();
         for (Student s : repository) {
             if (s != null) {
-                if (group.equals(s.getGroup()) && s.getRole() == StudentRole.DEPUTY_STAROSTE) {
+                if (group.equals(s.getGroup()) && s.getRole() == StudentRole.DEPUTY_STAROSTA) {
                     s.setRole(StudentRole.REGULAR);
                 }
             }
         }
-        target.setRole(StudentRole.DEPUTY_STAROSTE);
-        System.out.println("Deputy assigned" + target.getName() + " is now Deputy in group " + group);
+        target.setRole(StudentRole.DEPUTY_STAROSTA);
+        System.out.println("Deputy assigned: " + target.getName() + " is now Deputy in group: " + group);
     }
 }

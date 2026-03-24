@@ -83,21 +83,21 @@ public class ApplicationDisplay {
                 case "4" -> {
                     System.out.print("Enter Student ID: ");
                     String input = scanner.nextLine();
-                    try{
+                    try {
                         int id = Integer.parseInt(input);
                         studentController.assignStarosta(id);
-                    }catch (NumberFormatException e) {
+                    } catch (NumberFormatException e) {
                         System.out.println("Error: Student ID must be an integer number!");
                     }
                 }
                 case "5" -> {
                     System.out.print("Enter Student ID: ");
                     String input = scanner.nextLine();
-                    try{
+                    try {
                         int id = Integer.parseInt(input);
                         studentController.assignDeputy(id);
-                    }catch (NumberFormatException e) {
-                        System.out.println("Error: Deputy ID must be an integer number!");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: Student ID must be an integer number!");
                     }
                 }
                 case "0" -> {
