@@ -80,7 +80,7 @@ public class StudentServiceImpl extends UserServiceImpl<Student> implements Stud
             throw new StudentNotFoundException("Student not found");
         }
         if (target.getGroup() == null || target.getGroup().isBlank()) {
-            throw new StudentNotFoundException("Student has invalid group");
+            throw new IllegalStateException("Student has invalid group");
         }
         if (target.getRole() == StudentRole.STAROSTA) {
             throw new IllegalStateException("Starosta cannot be deputy");
