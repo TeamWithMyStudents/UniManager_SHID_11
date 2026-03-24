@@ -22,6 +22,7 @@ public class Student extends User {
 
     public Student(String name, String surname) {
         super(name, surname);
+        this.role = StudentRole.REGULAR;
     }
 
     public String getGroup() {
