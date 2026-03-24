@@ -3,6 +3,7 @@ package ua.shid11.controller;
 import ua.shid11.model.Student;
 import ua.shid11.service.StudentService;
 import ua.shid11.service.impl.StudentServiceImpl;
+import ua.shid11.exception.StudentNotFoundException;
 
 public class StudentController {
     private final StudentService service = new StudentServiceImpl();
@@ -26,7 +27,7 @@ public class StudentController {
     public void assignStarosta(int id) {
         try {
             service.assignStarosta(id);
-        } catch (Exception e) {
+        } catch (StudentNotFoundException | IllegalArgumentException | IllegalStateException e) {
             System.out.println("Assign starosta failed: " + e.getMessage());
         }
     }
@@ -34,7 +35,7 @@ public class StudentController {
     public void assignDeputy(int id) {
         try {
             service.assignDeputy(id);
-        } catch (Exception e) {
+        } catch (StudentNotFoundException | IllegalArgumentException | IllegalStateException e) {
             System.out.println("Assign deputy failed: " + e.getMessage());
         }
     }
