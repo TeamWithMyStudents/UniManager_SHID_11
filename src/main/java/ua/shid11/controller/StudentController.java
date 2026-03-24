@@ -22,4 +22,18 @@ public class StudentController {
             System.out.println(student);
         }
     }
+    public void assignStarosta(int id) {
+        try {
+            service.assignStarosta(id);
+        }catch (Exception e) {
+            System.out.println("Assign starosta failed" + e.getMessage());
+        }
+    }
+    public void assignDeputy(int id) {
+        try {
+            service.assignDeputy(id);
+        }catch (Exception e) {
+            System.out.println("Assign deputy failed" + e.getMessage());
+        }
+    }
 }

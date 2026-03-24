@@ -46,6 +46,8 @@ public class ApplicationDisplay {
                     1. Add Student
                     2. Show All Students
                     3. Delete Student by ID
+                    4. Assign Starosta
+                    5. Assign Deputy
                     0. Exit
                     Enter choice:\s""");
 
@@ -77,7 +79,26 @@ public class ApplicationDisplay {
                     } catch (NumberFormatException e) {
                         System.out.println("Error: Student ID must be an integer number!");
                     }
-
+                }
+                case "4" -> {
+                    System.out.print("Enter Student ID: ");
+                    String input = scanner.nextLine();
+                    try{
+                        int id = Integer.parseInt(input);
+                        studentController.assignStarosta(id);
+                    }catch (NumberFormatException e) {
+                        System.out.println("Error: Student ID must be an integer number!");
+                    }
+                }
+                case "5" -> {
+                    System.out.print("Enter Student ID: ");
+                    String input = scanner.nextLine();
+                    try{
+                        int id = Integer.parseInt(input);
+                        studentController.assignDeputy(id);
+                    }catch (NumberFormatException e) {
+                        System.out.println("Error: Deputy ID must be an integer number!");
+                    }
                 }
                 case "0" -> {
                     return;
