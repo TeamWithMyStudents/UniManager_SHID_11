@@ -8,8 +8,8 @@ import ua.shid11.exception.StudentNotFoundException;
 public class StudentController {
     private final StudentService service = new StudentServiceImpl();
 
-    public void create(String name, String surname, String group) {
-        Student student = new Student(name, surname, group);
+    public void create(String name, String surname, String group, String email, String password) {
+        Student student = new Student(name, surname, group, email, password);
         service.add(student);
         System.out.println("Student created");
     }

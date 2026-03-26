@@ -7,8 +7,8 @@ import ua.shid11.service.impl.TeacherServiceImpl;
 public class TeacherController {
     private final TeacherService service = new TeacherServiceImpl();
 
-    public void create(String name, String surname, String department, String degree, double salary) {
-        Teacher teacher = new Teacher(name, surname, department, degree, salary);
+    public void create(String name, String surname, String department, String degree, double salary, String email, String password) {
+        Teacher teacher = new Teacher(name, surname, department, degree, salary, email, password);
         service.add(teacher);
     }
 
