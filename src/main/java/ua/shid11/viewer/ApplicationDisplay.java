@@ -55,18 +55,20 @@ public class ApplicationDisplay {
 
             switch (choice) {
                 case "1" -> {
-                    System.out.print("Enter Student (Name Surname Group): ");
+                    System.out.print("Enter Student (Name Surname Group Email Password): ");
                     String input = scanner.nextLine();
                     String[] parts = input.trim().split("\\s+");
 
-                    if (parts.length < 3) {
-                        System.out.println("Required: name, surname, group");
+                    if (parts.length < 5) {
+                        System.out.println("Required: name, surname, group, email, password");
                         continue;
                     }
-                    String surname = parts[0];
-                    String name = parts[1];
-                    String group = parts[parts.length - 1];
-                    studentController.create(surname, name, group);
+                    String name = parts[0];
+                    String surname = parts[1];
+                    String group = parts[2];
+                    String email = parts[3];
+                    String password = parts[4];
+                    studentController.create(name, surname, group, email, password);
 
                 }
                 case "2" -> studentController.printAll();
@@ -126,12 +128,12 @@ public class ApplicationDisplay {
             switch (choice) {
 
                 case "1" -> {
-                    System.out.println("Enter: Name Surname Dept Degree Salary");
+                    System.out.println("Enter: Name Surname Dept Degree Salary Email Password");
 
                     String[] parts = scanner.nextLine().trim().split("\\s+");
 
-                    if (parts.length != 5) {
-                        System.out.println("Required: Name Surname Dept Degree Salary");
+                    if (parts.length != 7) {
+                        System.out.println("Required: Name Surname Dept Degree Salary Email Password");
                         continue;
                     }
 
@@ -139,10 +141,12 @@ public class ApplicationDisplay {
                     String surname = parts[1];
                     String dept = parts[2];
                     String degree = parts[3];
+                    String email = parts[5];
+                    String password = parts[6];
 
                     try {
                         double salary = Double.parseDouble(parts[4]);
-                        teacherController.create(name, surname, dept, degree, salary);
+                        teacherController.create(name, surname, dept, degree, salary, email, password);
                     } catch (NumberFormatException e) {
                         System.out.println("Salary must be a number!");
                     }
