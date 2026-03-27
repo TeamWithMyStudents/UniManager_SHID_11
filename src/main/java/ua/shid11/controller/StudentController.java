@@ -1,15 +1,19 @@
 package ua.shid11.controller;
 
 import ua.shid11.model.Student;
+import ua.shid11.security.AuthService;
+import ua.shid11.security.AuthServiceImpl;
 import ua.shid11.service.StudentService;
 import ua.shid11.service.impl.StudentServiceImpl;
 import ua.shid11.exception.StudentNotFoundException;
 
 public class StudentController {
     private final StudentService service = new StudentServiceImpl();
+    private final AuthService authService = new AuthServiceImpl();
 
     public void create(String name, String surname, String group, String email, String password) {
         Student student = new Student(name, surname, group, email, password);
+        authService.register(student);
         service.add(student);
         System.out.println("Student created");
     }

@@ -1,15 +1,20 @@
 package ua.shid11.controller;
 
 import ua.shid11.model.Teacher;
+import ua.shid11.security.AuthService;
+import ua.shid11.security.AuthServiceImpl;
 import ua.shid11.service.TeacherService;
 import ua.shid11.service.impl.TeacherServiceImpl;
 
 public class TeacherController {
     private final TeacherService service = new TeacherServiceImpl();
+    private final AuthService authService = new AuthServiceImpl();
 
     public void create(String name, String surname, String department, String degree, double salary, String email, String password) {
         Teacher teacher = new Teacher(name, surname, department, degree, salary, email, password);
+        authService.register(teacher);
         service.add(teacher);
+        System.out.println("Teacher created");
     }
 
     public void delete(int id) {

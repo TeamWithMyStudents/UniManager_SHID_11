@@ -11,6 +11,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void register(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null");
+        }
         if (user.getEmail() == null || !Pattern.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$", user.getEmail())) {
             throw new IllegalArgumentException("Invalid email format or password too short");
         }

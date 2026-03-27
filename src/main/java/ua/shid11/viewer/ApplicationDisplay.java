@@ -59,7 +59,7 @@ public class ApplicationDisplay {
                     String input = scanner.nextLine();
                     String[] parts = input.trim().split("\\s+");
 
-                    if (parts.length < 5) {
+                    if (parts.length != 5) {
                         System.out.println("Required: name, surname, group, email, password");
                         continue;
                     }
