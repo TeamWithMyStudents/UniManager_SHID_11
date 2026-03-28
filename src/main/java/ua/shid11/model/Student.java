@@ -6,8 +6,8 @@ public class Student extends User {
     private String group;
     private StudentRole role;
 
-    public Student(String name, String surname, String group) {
-        super(name, surname);
+    public Student(String name, String surname, String group, String email, String password) {
+        super(name, surname, email, password);
         this.group = group;
         this.role = StudentRole.REGULAR;
     }
@@ -20,10 +20,6 @@ public class Student extends User {
         this.role = role;
     }
 
-    public Student(String name, String surname) {
-        super(name, surname);
-        this.role = StudentRole.REGULAR;
-    }
 
     public String getGroup() {
         return group;
@@ -31,14 +27,7 @@ public class Student extends User {
 
 
     @Override
-
     public String toString() {
-        return "Student{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", surname='" + getSurname() + '\'' +
-                ", group='" + group + '\'' +
-                ", role='" + role.getDisplayName() + '\'' +
-                '}';
+        return "Student{" + "id=" + getId() + ", name='" + getName() + '\'' + ", surname='" + getSurname() + '\'' + ", group='" + group + '\'' + ", role='" + role.getDisplayName() + '\'' + '}';
     }
 }
