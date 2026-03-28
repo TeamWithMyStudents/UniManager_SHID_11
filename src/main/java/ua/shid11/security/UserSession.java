@@ -5,7 +5,7 @@ import ua.shid11.model.User;
 public class UserSession {
     private static User currentUser = null;
 
-    public static void login(User user){
+    public static void login(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User cannot be null");
         }
@@ -16,14 +16,14 @@ public class UserSession {
         currentUser = user;
     }
 
-    public static void logout(){
+    public static void logout() {
         currentUser = null;
     }
 
-    public static User getCurrentUser(){
+    public static User getCurrentUser() {
         return currentUser;
     }
-    public static boolean isAuthenticated(){
+    public static boolean isAuthenticated() {
         return currentUser != null;
     }
 }
