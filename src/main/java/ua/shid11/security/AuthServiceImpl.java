@@ -11,6 +11,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void register(User user) {
+
+        String normalizedEmail = user.getEmail().trim().toLowerCase();
+        user.setEmail(normalizedEmail);
+
         if (user == null) {
             throw new IllegalArgumentException("User cannot be null");
         }
@@ -22,7 +26,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         for (User existingUser : registeredUsers) {
-            if (existingUser.getEmail().equals(user.getEmail())) {
+            if (existingUser.getEmail().equals(normalizedEmail)) {
                 throw new IllegalArgumentException("User with this email already exists");
             }
         }
