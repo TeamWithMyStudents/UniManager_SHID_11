@@ -1,6 +1,7 @@
 package ua.shid11.security;
 
 import ua.shid11.model.User;
+import ua.shid11.util.UserFileHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,11 @@ import java.util.regex.Pattern;
 
 public class AuthServiceImpl implements AuthService {
     private List<User> registeredUsers = new ArrayList<>();
+
+    public AuthServiceImpl() {
+        this.registeredUsers = UserFileHandler.loadUsers();
+        System.out.println("Loaded users: " + registeredUsers.size());
+    }
 
     @Override
     public void register(User user) {
@@ -32,6 +38,8 @@ public class AuthServiceImpl implements AuthService {
         }
 
         registeredUsers.add(user);
+        UserFileHandler.saveUsers(registeredUsers);
+        System.out.println("User successfully registered!");
     }
 
     @Override
