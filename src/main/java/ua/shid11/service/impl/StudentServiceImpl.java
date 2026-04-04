@@ -1,10 +1,35 @@
+/**
+ * Service implementation for managing Student entities.
+ *
+ * <p>This class extends {@link UserServiceImpl} and provides additional
+ * business logic specific to students, including group-based operations
+ * and role management.</p>
+ *
+ * <p>Supported operations include:
+ * <ul>
+ *     <li>Finding students by group</li>
+ *     <li>Assigning a group starosta</li>
+ *     <li>Assigning a deputy starosta</li>
+ * </ul>
+ *
+ * <p><b>Business rules:</b>
+ * <ul>
+ *     <li>Each group can have only one starosta and one deputy</li>
+ *     <li>Assigning a new starosta or deputy replaces the previous one in the same group</li>
+ *     <li>A student must belong to a valid group to be assigned a role</li>
+ *     <li>Starosta cannot be assigned as deputy</li>
+ * </ul>
+ *
+ * <p>Exceptions are thrown for invalid input, missing students,
+ * or violations of business rules.</p>
+ */
+
 package ua.shid11.service.impl;
 
 import ua.shid11.exception.StudentNotFoundException;
 import ua.shid11.model.Student;
 import ua.shid11.service.StudentService;
 import ua.shid11.model.enums.StudentRole;
-
 
 public class StudentServiceImpl extends UserServiceImpl<Student> implements StudentService {
     public StudentServiceImpl() {

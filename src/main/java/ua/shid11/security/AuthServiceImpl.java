@@ -1,3 +1,14 @@
+/**
+ * Implementation of the AuthService interface that handles user registration and login.
+ *
+ * <p>The class loads registered users from a file on startup and saves them
+ * after each successful registration using UserFileHandler.</p>
+ *
+ * <p>Includes basic validation: email format, password length, and uniqueness of email.</p>
+ *
+ * <p>If saving to file fails, the registration is rolled back to keep data consistent.</p>
+ */
+
 package ua.shid11.security;
 
 import ua.shid11.model.User;
@@ -11,8 +22,13 @@ public class AuthServiceImpl implements AuthService {
     private List<User> registeredUsers = new ArrayList<>();
 
     public AuthServiceImpl() {
-        this.registeredUsers = UserFileHandler.loadUsers();
-        System.out.println("Loaded users: " + registeredUsers.size());
+        try {
+            this.registeredUsers = UserFileHandler.loadUsers();
+            System.out.println("Loaded users: " + registeredUsers.size());
+        } catch (Exception e) {
+            System.err.println("CRITICAL: cannot load users");
+            this.registeredUsers = new ArrayList<>();
+        }
     }
 
     @Override
@@ -31,28 +47,29 @@ public class AuthServiceImpl implements AuthService {
             throw new IllegalArgumentException("Password must be at least 8 characters");
         }
 
-        for (User existingUser : registeredUsers) {
+        for (User existingUser : registeredUsers) { // in the future it can be rewritten to stream api
             if (existingUser.getEmail().equals(normalizedEmail)) {
                 throw new IllegalArgumentException("User with this email already exists");
             }
         }
 
         registeredUsers.add(user);
-        UserFileHandler.saveUsers(registeredUsers);
-        System.out.println("User successfully registered!");
+        try {
+            UserFileHandler.saveUsers(registeredUsers);
+            System.out.println("User successfully registered!");
+        } catch (Exception e) {
+            registeredUsers.remove(user);
+            throw new RuntimeException("User registration failed: cannot save to file", e);
+        }
     }
 
     @Override
     public User login(String email, String password) {
 
-        User foundUser = null;
-
-        for (User user : registeredUsers) {
-            if (user.getEmail().equals(email)) {
-                foundUser = user;
-                break;
-            }
-        }
+        User foundUser = registeredUsers.stream()
+                .filter(user -> user.getEmail().equals(email))
+                .findFirst()
+                .orElseThrow(() -> new java.util.NoSuchElementException("User with this email not found"));
 
         if (foundUser == null) {
             throw new java.util.NoSuchElementException("User with this email not found");

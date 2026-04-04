@@ -1,3 +1,23 @@
+/**
+ * Controller class for managing Teacher-related operations.
+ *
+ * <p>This class serves as a bridge between the user interface and
+ * the business logic layers (TeacherService and AuthService).</p>
+ *
+ * <p>Provides functionality to:
+ * <ul>
+ *     <li>Create and register new teachers</li>
+ *     <li>Delete teachers by ID</li>
+ *     <li>Display all teachers</li>
+ *     <li>Calculate total salary of all teachers</li>
+ *     <li>Filter teachers by academic degree</li>
+ * </ul>
+ *
+ * <p><b>Note:</b>
+ * Teacher creation includes both registration in the authentication system
+ * and addition to the teacher service.</p>
+ */
+
 package ua.shid11.controller;
 
 import ua.shid11.model.Teacher;
@@ -22,9 +42,8 @@ public class TeacherController {
     }
 
     public void printAll() {
-        for (Teacher teacher : service.getAll()) {
-            System.out.println(teacher);
-        }
+        service.getAll()
+                .forEach(System.out::println);
     }
 
     public double calculateTotalSalary() {

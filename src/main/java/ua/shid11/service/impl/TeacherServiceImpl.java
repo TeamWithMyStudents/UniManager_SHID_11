@@ -1,3 +1,25 @@
+/**
+ * Service implementation for managing Teacher entities.
+ *
+ * <p>This class extends {@link UserServiceImpl} and provides
+ * additional business logic specific to teachers.</p>
+ *
+ * <p>Supported operations include:
+ * <ul>
+ *     <li>Calculating total salary of all teachers</li>
+ *     <li>Filtering teachers by academic degree</li>
+ *     <li>Adding teachers with validation</li>
+ * </ul>
+ *
+ * <p><b>Business rules:</b>
+ * <ul>
+ *     <li>Teacher salary must be greater than zero</li>
+ *     <li>Degree must not be null or empty when filtering</li>
+ * </ul>
+ *
+ * <p>Invalid input results in {@link IllegalArgumentException}.</p>
+ */
+
 package ua.shid11.service.impl;
 
 import ua.shid11.model.Teacher;
