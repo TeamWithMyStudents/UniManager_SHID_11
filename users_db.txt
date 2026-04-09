@@ -1,0 +1,2 @@
+Student,Prykhodko,Polina,12345678,SHID-11,st99493@duikt.edu.ua
+Student,Polina,Prykhodko,polina@gmail.com,12345678,KN-11

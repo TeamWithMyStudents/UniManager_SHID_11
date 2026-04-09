@@ -1,3 +1,22 @@
+/**
+ * Controller class for managing Student-related operations.
+ *
+ * <p>This class acts as an intermediary between the user interface and
+ * the business logic layers (StudentService and AuthService).</p>
+ *
+ * <p>Provides functionality to:
+ * <ul>
+ *     <li>Create and register new students</li>
+ *     <li>Delete students by ID</li>
+ *     <li>Display all students</li>
+ *     <li>Assign roles such as starosta and deputy</li>
+ * </ul>
+ *
+ * <p><b>Note:</b>
+ * Student creation includes both registration in the authentication system
+ * and addition to the student service.</p>
+ */
+
 package ua.shid11.controller;
 
 import ua.shid11.model.Student;
@@ -23,9 +42,8 @@ public class StudentController {
     }
 
     public void printAll() {
-        for (Student student : service.getAll()) {
-            System.out.println(student);
-        }
+        service.getAll()
+                .forEach(System.out::println);
     }
 
     public void assignStarosta(int id) {

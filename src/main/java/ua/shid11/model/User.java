@@ -1,3 +1,24 @@
+/**
+ * Abstract base class representing a user in the system.
+ *
+ * <p>This class defines common properties shared by all user types,
+ * such as id, name, surname, email, and password.</p>
+ *
+ * <p>Each user is automatically assigned a unique incremental ID
+ * using a static counter.</p>
+ *
+ * <p>Subclasses such as {@link Student} and {@link Teacher}
+ * extend this class to add specific attributes and behavior.</p>
+ *
+ * <p>Default values:
+ * <ul>
+ *     <li>If name or surname is null, they are set to "Unknown"</li>
+ * </ul>
+ *
+ * <p>This class also provides standard getters and setters
+ * for all fields except the ID, which is read-only.</p>
+ */
+
 package ua.shid11.model;
 
 public abstract class User {

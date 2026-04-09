@@ -1,3 +1,31 @@
+/**
+ * Abstract generic service implementation for managing User entities.
+ *
+ * <p>This class provides a base in-memory repository and common CRUD-like
+ * operations for all types of users extending {@link User}.</p>
+ *
+ * <p>It is intended to be extended by specific service implementations
+ * such as {@link StudentServiceImpl} and {@link TeacherServiceImpl}.</p>
+ *
+ * <p>Supported operations include:
+ * <ul>
+ *     <li>Adding users</li>
+ *     <li>Deleting users by ID</li>
+ *     <li>Retrieving all users</li>
+ *     <li>Searching users by name</li>
+ *     <li>Sorting users by surname (using locale-aware comparison)</li>
+ * </ul>
+ *
+ * <p><b>Implementation details:</b>
+ * <ul>
+ *     <li>Uses an in-memory {@link java.util.List} as a repository</li>
+ *     <li>Sorting is performed using {@link java.text.Collator} with Ukrainian locale</li>
+ *     <li>Returns defensive copies of collections to preserve encapsulation</li>
+ * </ul>
+ *
+ * @param <T> type of user extending {@link User}
+ */
+
 package ua.shid11.service.impl;
 
 import ua.shid11.model.User;
@@ -39,7 +67,7 @@ public abstract class UserServiceImpl<T extends User> implements UserService<T> 
             throw new IllegalArgumentException("Query must not be null");
         }
 
-        boolean found = false;
+        boolean found = false; // also need to rewrite to stream api
         for (T t : repository) {
             if (t.getName() != null && t.getName().toLowerCase().contains(query.toLowerCase())) {
                 System.out.println(t);
@@ -53,17 +81,13 @@ public abstract class UserServiceImpl<T extends User> implements UserService<T> 
 
     @Override
     public void sortBySurname() {
-        Collator uaCollator = Collator.getInstance(new Locale("uk", "UA"));
-        List<T> users = getAll();
-
-        users.sort((u1, u2) -> {
-            String s1 = (u1.getSurname() == null) ? "" : u1.getSurname();
-            String s2 = (u2.getSurname() == null) ? "" : u2.getSurname();
-            return uaCollator.compare(s1, s2);
-        });
-
-        for (T u : users) {
-            System.out.println(u);
-        }
+        repository.stream()
+                .sorted((u1, u2) -> {
+                    Collator uaCollator = Collator.getInstance(new Locale("uk", "UA"));
+                    String s1 = (u1.getSurname() == null) ? "" : u1.getSurname();
+                    String s2 = (u2.getSurname() == null) ? "" : u2.getSurname();
+                    return uaCollator.compare(s1, s2);
+                })
+                .forEach(System.out::println);
     }
 }

@@ -1,3 +1,29 @@
+/**
+ * Console-based user interface for the application.
+ *
+ * <p>This class is responsible for interacting with the user via the console,
+ * displaying menus, and delegating user actions to the appropriate controllers.</p>
+ *
+ * <p>It provides a simple text-based navigation system for managing:
+ * <ul>
+ *     <li>Students</li>
+ *     <li>Teachers</li>
+ * </ul>
+ *
+ * <p>The application runs in a loop and allows users to perform CRUD operations,
+ * assign roles, and view aggregated data.</p>
+ *
+ * <p><b>Features:</b>
+ * <ul>
+ *     <li>Main menu with navigation to student and teacher submenus</li>
+ *     <li>Input validation and basic error handling</li>
+ *     <li>Delegation of business logic to controllers</li>
+ * </ul>
+ *
+ * <p><b>Note:</b> This is a console (CLI) application using {@link java.util.Scanner}
+ * for input handling.</p>
+ */
+
 package ua.shid11.viewer;
 
 import ua.shid11.controller.StudentController;
