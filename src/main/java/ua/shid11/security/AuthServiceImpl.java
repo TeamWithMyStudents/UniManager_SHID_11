@@ -27,7 +27,7 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * Validates and registers a new user.
-     * * @throws IllegalArgumentException if validation fails or email exists.
+     * @throws IllegalArgumentException if validation fails or email exists.
      * @throws RuntimeException if file saving fails (performs rollback).
      */
     @Override
@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * Authenticates user and starts a new {@link UserSession}.
-     * * @return the authenticated {@link User}
+     * @return the authenticated {@link User}
      * @throws java.util.NoSuchElementException if user is not found.
      */
     @Override
