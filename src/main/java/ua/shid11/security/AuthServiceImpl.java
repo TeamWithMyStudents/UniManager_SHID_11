@@ -66,7 +66,10 @@ public class AuthServiceImpl implements AuthService {
     public User login(String email, String password) {
 
         String normalizedEmail = email == null ? null : email.trim().toLowerCase();
-        User foundUser = registeredUsers.stream().filter(user -> user.getEmail().equals(normalizedEmail)).findFirst().orElseThrow(() -> new java.util.NoSuchElementException("User with this email not found"));
+        User foundUser = registeredUsers.stream()
+          .filter(user -> user.getEmail().equals(normalizedEmail))
+          .findFirst()
+          .orElseThrow(() -> new java.util.NoSuchElementException("User with this email not found"));
 
         if (foundUser == null) {
             throw new java.util.NoSuchElementException("User with this email not found");

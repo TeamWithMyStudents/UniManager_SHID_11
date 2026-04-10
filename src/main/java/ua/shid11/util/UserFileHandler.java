@@ -91,7 +91,7 @@ public class UserFileHandler {
 
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length < 3) {
+                if (data.length < 2) {
                     System.err.println("Skipping malformed line: " + line);
                     continue;
                 }
