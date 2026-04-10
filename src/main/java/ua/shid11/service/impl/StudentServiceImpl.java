@@ -1,29 +1,3 @@
-/**
- * Service implementation for managing Student entities.
- *
- * <p>This class extends {@link UserServiceImpl} and provides additional
- * business logic specific to students, including group-based operations
- * and role management.</p>
- *
- * <p>Supported operations include:
- * <ul>
- *     <li>Finding students by group</li>
- *     <li>Assigning a group starosta</li>
- *     <li>Assigning a deputy starosta</li>
- * </ul>
- *
- * <p><b>Business rules:</b>
- * <ul>
- *     <li>Each group can have only one starosta and one deputy</li>
- *     <li>Assigning a new starosta or deputy replaces the previous one in the same group</li>
- *     <li>A student must belong to a valid group to be assigned a role</li>
- *     <li>Starosta cannot be assigned as deputy</li>
- * </ul>
- *
- * <p>Exceptions are thrown for invalid input, missing students,
- * or violations of business rules.</p>
- */
-
 package ua.shid11.service.impl;
 
 import ua.shid11.exception.StudentNotFoundException;
@@ -31,11 +5,20 @@ import ua.shid11.model.Student;
 import ua.shid11.service.StudentService;
 import ua.shid11.model.enums.StudentRole;
 
+/**
+ * Service for student-specific business logic, including role management and group operations.
+ * Extends {@link UserServiceImpl} to reuse base CRUD functionality.
+ */
 public class StudentServiceImpl extends UserServiceImpl<Student> implements StudentService {
     public StudentServiceImpl() {
         super();
     }
 
+    /**
+     * Filters and prints students belonging to a specific group.
+     * @param groupName the name of the group to search for
+     * @throws IllegalArgumentException if groupName is null
+     */
     @Override
     public void findByGroup(String groupName) {
         if (groupName == null) {
@@ -54,6 +37,12 @@ public class StudentServiceImpl extends UserServiceImpl<Student> implements Stud
         }
     }
 
+    /**
+     * Assigns the Starosta role to a student and removes it from the previous holder in the same group.
+     * @param studentId unique identifier of the student
+     * @throws StudentNotFoundException if student doesn't exist
+     * @throws IllegalStateException if the student has no valid group
+     */
     @Override
     public void assignStarosta(int studentId) {
         if (studentId <= 0) {
@@ -89,6 +78,11 @@ public class StudentServiceImpl extends UserServiceImpl<Student> implements Stud
         System.out.println("Starosta assigned: " + target.getName() + " is now Starosta in group: " + group);
     }
 
+    /**
+     * Assigns the Deputy role to a student. Starostas cannot be assigned as deputies.
+     * @param studentId unique identifier of the student
+     * @throws IllegalStateException if a Starosta tries to become a Deputy
+     */
     @Override
     public void assignDeputy(int studentId) {
         if (studentId <= 0) {

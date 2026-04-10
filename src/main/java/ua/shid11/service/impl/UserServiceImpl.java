@@ -1,31 +1,3 @@
-/**
- * Abstract generic service implementation for managing User entities.
- *
- * <p>This class provides a base in-memory repository and common CRUD-like
- * operations for all types of users extending {@link User}.</p>
- *
- * <p>It is intended to be extended by specific service implementations
- * such as {@link StudentServiceImpl} and {@link TeacherServiceImpl}.</p>
- *
- * <p>Supported operations include:
- * <ul>
- *     <li>Adding users</li>
- *     <li>Deleting users by ID</li>
- *     <li>Retrieving all users</li>
- *     <li>Searching users by name</li>
- *     <li>Sorting users by surname (using locale-aware comparison)</li>
- * </ul>
- *
- * <p><b>Implementation details:</b>
- * <ul>
- *     <li>Uses an in-memory {@link java.util.List} as a repository</li>
- *     <li>Sorting is performed using {@link java.text.Collator} with Ukrainian locale</li>
- *     <li>Returns defensive copies of collections to preserve encapsulation</li>
- * </ul>
- *
- * @param <T> type of user extending {@link User}
- */
-
 package ua.shid11.service.impl;
 
 import ua.shid11.model.User;
@@ -36,13 +8,23 @@ import java.util.List;
 import java.util.Locale;
 import java.text.Collator;
 
+/**
+ * Generic base implementation for user management services.
+ * Handles common CRUD operations and sorting for any type extending {@link User}.
+ * @param <T> the specific user type (e.g., Student or Teacher)
+ */
 public abstract class UserServiceImpl<T extends User> implements UserService<T> {
+    /** Protected repository allows direct access for subclasses like StudentServiceImpl. */
     protected List<T> repository;
 
     public UserServiceImpl() {
         this.repository = new ArrayList<>();
     }
 
+    /**
+     * Adds a user to the internal storage.
+     * @throws IllegalArgumentException if user is null
+     */
     @Override
     public void add(T u) {
         if (u == null) {
@@ -51,16 +33,26 @@ public abstract class UserServiceImpl<T extends User> implements UserService<T> 
         repository.add(u);
     }
 
+    /**
+     * Removes a user from the repository based on their unique ID.
+     */
     @Override
     public void delete(int id) {
         repository.removeIf(u -> u != null && u.getId() == id);
     }
 
+    /**
+     * @return a defensive copy of the user list to preserve encapsulation.
+     */
     @Override
     public List<T> getAll() {
         return new ArrayList<>(repository);
     }
 
+    /**
+     * Performs a case-insensitive search by user name and prints results.
+     * @param query the search string
+     */
     @Override
     public void findByName(String query) {
         if (query == null || query.isBlank()) {
@@ -79,6 +71,9 @@ public abstract class UserServiceImpl<T extends User> implements UserService<T> 
         }
     }
 
+    /**
+     * Sorts and prints users by surname using Ukrainian locale rules.
+     */
     @Override
     public void sortBySurname() {
         repository.stream()

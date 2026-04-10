@@ -1,29 +1,20 @@
-/**
- * Utility class that manages the current authenticated user session.
- *
- * <p>This class provides a simple in-memory session mechanism
- * for tracking the currently logged-in user.</p>
- *
- * <p>It supports:
- * <ul>
- *     <li>Logging in a user</li>
- *     <li>Logging out the current user</li>
- *     <li>Retrieving the currently authenticated user</li>
- *     <li>Checking authentication status</li>
- * </ul>
- *
- * <p><b>Note:</b>
- * This is a simple session implementation and is not thread-safe.
- * It is intended for learning/demo purposes.</p>
- */
-
 package ua.shid11.security;
 
 import ua.shid11.model.User;
 
+/**
+ * Manages the current authenticated user session in memory.
+ * Provides static methods to track, login, and logout the user.
+ */
 public class UserSession {
     private static User currentUser = null;
 
+    /**
+     * Sets the current user session.
+     * @param user the user to log in
+     * @throws IllegalArgumentException if user is null
+     * @throws IllegalStateException if a session is already active
+     */
     public static void login(User user) {
         if (user == null) {
             throw new IllegalArgumentException("User cannot be null");
@@ -35,13 +26,18 @@ public class UserSession {
         currentUser = user;
     }
 
+    /**
+     * Clears the current user session.
+     */
     public static void logout() {
         currentUser = null;
     }
 
+    /** @return the currently logged-in {@link User} or null if none. */
     public static User getCurrentUser() {
         return currentUser;
     }
+    /** @return true if a user is currently logged in. */
     public static boolean isAuthenticated() {
         return currentUser != null;
     }

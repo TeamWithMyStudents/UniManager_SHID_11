@@ -4,12 +4,18 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a scheduled academic lesson.
+ */
 public class Lesson {
     private DayOfWeek dayOfWeek;
     private LocalTime time;
     private String subject;
     private String teacherSurname;
 
+    /**
+     * Constructs a new Lesson with the specified details.
+     */
     public Lesson(String subject, String teacherSurname, LocalTime time, DayOfWeek dayOfWeek) {
         this.subject = subject;
         this.teacherSurname = teacherSurname;

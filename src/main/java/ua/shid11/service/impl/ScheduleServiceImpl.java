@@ -12,9 +12,21 @@ import java.util.List;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Implementation of {@link ScheduleService} for managing academic lessons.
+ * Provides functionality to add, filter, and sort lessons using in-memory storage.
+ */
 public class ScheduleServiceImpl implements ScheduleService {
     private final List<Lesson> lessons = new ArrayList<>();
 
+    /**
+     * Parses input data and adds a new lesson to the schedule.
+     * @param day            name of the day (e.g., "MONDAY")
+     * @param time           time in "HH:mm" format (e.g., "14:30")
+     * @param subject        name of the subject
+     * @param teacherSurname surname of the instructor
+     * @throws IllegalArgumentException if inputs are null/blank or format is invalid
+     */
     @Override
     public void addLesson(String day, String time, String subject, String teacherSurname) {
         if (day == null || time == null || subject == null || teacherSurname == null) {
@@ -34,6 +46,11 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
     }
 
+    /**
+     * @param dayOfWeek the day to filter by
+     * @return a list of lessons for the specified day
+     * @throws IllegalArgumentException if dayOfWeek is null
+     */
     @Override
     public List<Lesson> getLessonsByDay(DayOfWeek dayOfWeek) {
         if (dayOfWeek == null) {
@@ -42,8 +59,13 @@ public class ScheduleServiceImpl implements ScheduleService {
         return lessons.stream().filter(lesson -> lesson.getDayOfWeek() == dayOfWeek).toList();
     }
 
+    /**
+     * @return all lessons sorted chronologically by time, regardless of the day.
+     */
     @Override
     public List<Lesson> getAllSortedByTime() {
-        return lessons.stream().sorted(Comparator.comparing(Lesson::getTime)).toList();
+        return lessons.stream()
+                .sorted(Comparator.comparing(Lesson::getTime))
+                .toList();
     }
 }

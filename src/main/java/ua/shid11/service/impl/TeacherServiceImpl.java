@@ -1,36 +1,22 @@
-/**
- * Service implementation for managing Teacher entities.
- *
- * <p>This class extends {@link UserServiceImpl} and provides
- * additional business logic specific to teachers.</p>
- *
- * <p>Supported operations include:
- * <ul>
- *     <li>Calculating total salary of all teachers</li>
- *     <li>Filtering teachers by academic degree</li>
- *     <li>Adding teachers with validation</li>
- * </ul>
- *
- * <p><b>Business rules:</b>
- * <ul>
- *     <li>Teacher salary must be greater than zero</li>
- *     <li>Degree must not be null or empty when filtering</li>
- * </ul>
- *
- * <p>Invalid input results in {@link IllegalArgumentException}.</p>
- */
-
 package ua.shid11.service.impl;
 
 import ua.shid11.model.Teacher;
 import ua.shid11.service.TeacherService;
 
+/**
+ * Service implementation for {@link Teacher} operations, including salary
+ * calculations and degree filtering.
+ * Extends {@link UserServiceImpl} to handle base CRUD logic.
+ */
 public class TeacherServiceImpl extends UserServiceImpl<Teacher> implements TeacherService {
     public TeacherServiceImpl() {
         super();
     }
 
-
+    /**
+     * Calculates the total sum of salaries for all registered teachers.
+     * @return total salary amount
+     */
     @Override
     public double calculateTotalSalary() {
         double total = 0;
@@ -42,6 +28,11 @@ public class TeacherServiceImpl extends UserServiceImpl<Teacher> implements Teac
         return total;
     }
 
+    /**
+     * Filters and prints teachers who hold the specified academic degree.
+     * @param degree the degree to filter by
+     * @throws IllegalArgumentException if the degree string is null or blank
+     */
     @Override
     public void filterByDegree(String degree) {
         if (degree == null || degree.isBlank()) {
@@ -61,6 +52,11 @@ public class TeacherServiceImpl extends UserServiceImpl<Teacher> implements Teac
         }
     }
 
+    /**
+     * Adds a teacher to the repository after validating their salary.
+     * @param teacher the teacher object to add
+     * @throws IllegalArgumentException if salary is less than or equal to zero
+     */
     @Override
     public void add(Teacher teacher) {
         if (teacher.getSalary() <= 0) {
