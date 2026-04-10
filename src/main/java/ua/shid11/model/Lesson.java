@@ -1,4 +1,5 @@
 package ua.shid11.model;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -51,11 +52,6 @@ public class Lesson {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        return "Lesson{" +
-                "dayOfWeek=" + dayOfWeek +
-                ", time=" + time +
-                ", subject='" + subject + '\'' +
-                ", teacherSurname='" + teacherSurname + '\'' +
-                '}';
+        return "Lesson{" + "dayOfWeek=" + dayOfWeek + ", time=" + time + ", subject='" + subject + '\'' + ", teacherSurname='" + teacherSurname + '\'' + '}';
     }
 }
