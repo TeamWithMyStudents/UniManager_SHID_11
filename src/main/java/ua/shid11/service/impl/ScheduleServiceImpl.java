@@ -20,11 +20,14 @@ public class ScheduleServiceImpl implements ScheduleService {
         if (day == null || time == null || subject == null || teacherSurname == null) {
             throw new IllegalArgumentException("Input data can't be null");
         }
+        if (day.isBlank() || time.isBlank() || subject.isBlank() || teacherSurname.isBlank()) {
+            throw new IllegalArgumentException("Input data can't be blank");
+        }
         try {
             DayOfWeek dayOfWeek = DayOfWeek.valueOf(day.trim().toUpperCase(Locale.ROOT));
             LocalTime lessonTime = LocalTime.parse(time.trim(), DateTimeFormatter.ofPattern("HH:mm"));
 
-            Lesson lesson = new Lesson(subject, teacherSurname, lessonTime, dayOfWeek);
+            Lesson lesson = new Lesson(subject.trim(), teacherSurname.trim(), lessonTime, dayOfWeek);
             lessons.add(lesson);
         } catch (DateTimeParseException | IllegalArgumentException e) {
             throw new IllegalArgumentException("Invalid time format (HH:mm) or day of the week", e);
