@@ -26,8 +26,7 @@ public class AuthServiceImpl implements AuthService {
             this.registeredUsers = UserFileHandler.loadUsers();
             System.out.println("Loaded users: " + registeredUsers.size());
         } catch (Exception e) {
-            System.err.println("CRITICAL: cannot load users");
-            this.registeredUsers = new ArrayList<>();
+            throw new IllegalStateException("Cannot initialize auth storage", e);
         }
     }
 
@@ -66,10 +65,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public User login(String email, String password) {
 
-        User foundUser = registeredUsers.stream()
-                .filter(user -> user.getEmail().equals(email))
-                .findFirst()
-                .orElseThrow(() -> new java.util.NoSuchElementException("User with this email not found"));
+        String normalizedEmail = email == null ? null : email.trim().toLowerCase();
+        User foundUser = registeredUsers.stream().filter(user -> user.getEmail().equals(normalizedEmail)).findFirst().orElseThrow(() -> new java.util.NoSuchElementException("User with this email not found"));
 
         if (foundUser == null) {
             throw new java.util.NoSuchElementException("User with this email not found");

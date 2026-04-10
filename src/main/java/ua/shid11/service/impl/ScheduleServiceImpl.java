@@ -9,6 +9,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class ScheduleServiceImpl implements ScheduleService {
     private final List<Lesson> lessons = new ArrayList<>();
@@ -19,13 +21,13 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new IllegalArgumentException("Input data can't be null");
         }
         try {
-            DayOfWeek dayOfWeek = DayOfWeek.valueOf(day.toUpperCase());
-            LocalTime lessonTime = LocalTime.parse(time);
+            DayOfWeek dayOfWeek = DayOfWeek.valueOf(day.trim().toUpperCase(Locale.ROOT));
+            LocalTime lessonTime = LocalTime.parse(time.trim(), DateTimeFormatter.ofPattern("HH:mm"));
 
             Lesson lesson = new Lesson(subject, teacherSurname, lessonTime, dayOfWeek);
             lessons.add(lesson);
         } catch (DateTimeParseException | IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid time format (HH:mm) or day of the week");
+            throw new IllegalArgumentException("Invalid time format (HH:mm) or day of the week", e);
         }
     }
 

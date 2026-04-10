@@ -48,7 +48,7 @@ public class UserFileHandler {
     public static void saveUsers(List<User> users) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (User user : users) {
-                String line = "";
+                String line;
 
                 if (user instanceof Student s) {
                     line = "Student," +
@@ -66,6 +66,9 @@ public class UserFileHandler {
                             t.getSalary() + "," +
                             t.getEmail() + "," +
                             t.getPassword();
+                } else {
+                    System.err.println("Skipping unsupported user type: " + user.getClass().getName());
+                    continue;
                 }
 
                 writer.write(line);
@@ -80,13 +83,15 @@ public class UserFileHandler {
         List<User> users = new ArrayList<>();
         File file = new File(FILE_PATH);
 
-        if (!file.exists()) { return  users; }
+        if (!file.exists()) {
+            return users;
+        }
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
 
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length < 2) {
+                if (data.length < 3) {
                     System.err.println("Skipping malformed line: " + line);
                     continue;
                 }
@@ -104,7 +109,13 @@ public class UserFileHandler {
                 } else if (type.equals("Teacher") && data.length >= 8) {
                     String department = data[3];
                     String degree = data[4];
-                    double salary = Double.parseDouble(data[5]);
+                    double salary;
+                    try {
+                        salary = Double.parseDouble(data[5]);
+                    } catch (NumberFormatException ex) {
+                        System.err.println("Skipping invalid teacher salary: " + line);
+                        continue;
+                    }
                     String email = data[6];
                     String password = data[7];
                     users.add(new Teacher(name, surname, department, degree, salary, email, password));
