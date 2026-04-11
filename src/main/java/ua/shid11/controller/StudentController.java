@@ -1,22 +1,3 @@
-/**
- * Controller class for managing Student-related operations.
- *
- * <p>This class acts as an intermediary between the user interface and
- * the business logic layers (StudentService and AuthService).</p>
- *
- * <p>Provides functionality to:
- * <ul>
- *     <li>Create and register new students</li>
- *     <li>Delete students by ID</li>
- *     <li>Display all students</li>
- *     <li>Assign roles such as starosta and deputy</li>
- * </ul>
- *
- * <p><b>Note:</b>
- * Student creation includes both registration in the authentication system
- * and addition to the student service.</p>
- */
-
 package ua.shid11.controller;
 
 import ua.shid11.model.Student;
@@ -26,10 +7,16 @@ import ua.shid11.service.StudentService;
 import ua.shid11.service.impl.StudentServiceImpl;
 import ua.shid11.exception.StudentNotFoundException;
 
+/**
+ * Controller for managing {@link Student} operations, registration, and role assignments.
+ */
 public class StudentController {
     private final StudentService service = new StudentServiceImpl();
     private final AuthService authService = new AuthServiceImpl();
 
+    /**
+     * Registers a student in the auth system and adds them to the service.
+     */
     public void create(String name, String surname, String group, String email, String password) {
         Student student = new Student(name, surname, group, email, password);
         authService.register(student);
@@ -37,15 +24,24 @@ public class StudentController {
         System.out.println("Student created");
     }
 
+    /**
+     * Removes a student by their unique ID.
+     */
     public void delete(int id) {
         service.delete(id);
     }
 
+    /**
+     * Prints all students to the console.
+     */
     public void printAll() {
         service.getAll()
                 .forEach(System.out::println);
     }
 
+    /**
+     * Assigns the "Starosta" (group leader) role to a student.
+     */
     public void assignStarosta(int id) {
         try {
             service.assignStarosta(id);
@@ -54,6 +50,9 @@ public class StudentController {
         }
     }
 
+    /**
+     * Assigns the "Deputy" (vice-leader) role to a student.
+     */
     public void assignDeputy(int id) {
         try {
             service.assignDeputy(id);

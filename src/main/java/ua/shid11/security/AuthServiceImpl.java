@@ -1,14 +1,3 @@
-/**
- * Implementation of the AuthService interface that handles user registration and login.
- *
- * <p>The class loads registered users from a file on startup and saves them
- * after each successful registration using UserFileHandler.</p>
- *
- * <p>Includes basic validation: email format, password length, and uniqueness of email.</p>
- *
- * <p>If saving to file fails, the registration is rolled back to keep data consistent.</p>
- */
-
 package ua.shid11.security;
 
 import ua.shid11.model.User;
@@ -18,19 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * Implementation of {@link AuthService} with file-based persistence.
+ */
 public class AuthServiceImpl implements AuthService {
     private List<User> registeredUsers = new ArrayList<>();
 
+    /**
+     * Loads existing users from storage on initialization.
+     */
     public AuthServiceImpl() {
         try {
             this.registeredUsers = UserFileHandler.loadUsers();
             System.out.println("Loaded users: " + registeredUsers.size());
         } catch (Exception e) {
-            System.err.println("CRITICAL: cannot load users");
-            this.registeredUsers = new ArrayList<>();
+            throw new IllegalStateException("Cannot initialize auth storage", e);
         }
     }
 
+    /**
+     * Validates and registers a new user.
+     * @throws IllegalArgumentException if validation fails or email exists.
+     * @throws RuntimeException if file saving fails (performs rollback).
+     */
     @Override
     public void register(User user) {
 
@@ -63,13 +62,19 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    /**
+     * Authenticates user and starts a new {@link UserSession}.
+     * @return the authenticated {@link User}
+     * @throws java.util.NoSuchElementException if user is not found.
+     */
     @Override
     public User login(String email, String password) {
 
+        String normalizedEmail = email == null ? null : email.trim().toLowerCase();
         User foundUser = registeredUsers.stream()
-                .filter(user -> user.getEmail().equals(email))
-                .findFirst()
-                .orElseThrow(() -> new java.util.NoSuchElementException("User with this email not found"));
+          .filter(user -> user.getEmail().equals(normalizedEmail))
+          .findFirst()
+          .orElseThrow(() -> new java.util.NoSuchElementException("User with this email not found"));
 
         if (foundUser == null) {
             throw new java.util.NoSuchElementException("User with this email not found");

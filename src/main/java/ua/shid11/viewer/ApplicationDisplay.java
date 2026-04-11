@@ -1,29 +1,3 @@
-/**
- * Console-based user interface for the application.
- *
- * <p>This class is responsible for interacting with the user via the console,
- * displaying menus, and delegating user actions to the appropriate controllers.</p>
- *
- * <p>It provides a simple text-based navigation system for managing:
- * <ul>
- *     <li>Students</li>
- *     <li>Teachers</li>
- * </ul>
- *
- * <p>The application runs in a loop and allows users to perform CRUD operations,
- * assign roles, and view aggregated data.</p>
- *
- * <p><b>Features:</b>
- * <ul>
- *     <li>Main menu with navigation to student and teacher submenus</li>
- *     <li>Input validation and basic error handling</li>
- *     <li>Delegation of business logic to controllers</li>
- * </ul>
- *
- * <p><b>Note:</b> This is a console (CLI) application using {@link java.util.Scanner}
- * for input handling.</p>
- */
-
 package ua.shid11.viewer;
 
 import ua.shid11.controller.StudentController;
@@ -31,6 +5,10 @@ import ua.shid11.controller.TeacherController;
 
 import java.util.Scanner;
 
+/**
+ * Console UI handling user interaction and menu navigation.
+ * Delegates all business operations to {@link StudentController} and {@link TeacherController}.
+ */
 public class ApplicationDisplay {
     private static final StudentController studentController = new StudentController();
     private static final TeacherController teacherController = new TeacherController();
@@ -40,6 +18,7 @@ public class ApplicationDisplay {
         mainMenu();
     }
 
+    /** Displays the top-level menu for switching between entities. */
     private void mainMenu() {
         while (true) {
             System.out.print("""
@@ -64,6 +43,7 @@ public class ApplicationDisplay {
         }
     }
 
+    /** Submenu for student-specific operations (CRUD, roles). */
     private void studentSubMenu() {
         while (true) {
             System.out.print("""
@@ -137,6 +117,7 @@ public class ApplicationDisplay {
         }
     }
 
+    /** Submenu for teacher-specific operations (CRUD, analytics). */
     private void teacherSubMenu() {
         while (true) {
             System.out.print("""

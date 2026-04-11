@@ -1,30 +1,3 @@
-/**
- * Utility class for handling user data persistence using file I/O.
- *
- * <p>This class provides methods to save and load users from a text file
- * acting as a simple database. Data is stored in CSV format, where each line
- * represents a user and contains all required fields.</p>
- *
- * <p><b>Supported user types:</b>
- * <ul>
- *     <li>Student</li>
- *     <li>Teacher</li>
- * </ul>
- *
- * <p><b>File format:</b>
- * <ul>
- *     <li>Student: type, name, surname, group, email, password</li>
- *     <li>Teacher: type, name, surname, department, degree, salary, email, password</li>
- * </ul>
- *
- * <p><b>Error handling:</b>
- * <ul>
- *     <li>If the file does not exist, an empty user list is returned</li>
- *     <li>Malformed or invalid lines are skipped</li>
- *     <li>I/O errors result in a RuntimeException</li>
- * </ul>
- */
-
 package ua.shid11.util;
 
 import ua.shid11.model.Teacher;
@@ -41,14 +14,22 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
+/**
+ * Utility for persisting {@link User} data to a CSV-style text file.
+ * Handles serialization and deserialization for {@link Student} and {@link Teacher} types.
+ */
 public class UserFileHandler {
     private static final String FILE_PATH = "users_db.txt";
 
+    /**
+     * Saves a list of users to the file.
+     * @param users the list of users to persist
+     * @throws RuntimeException if an I/O error occurs during saving
+     */
     public static void saveUsers(List<User> users) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (User user : users) {
-                String line = "";
+                String line;
 
                 if (user instanceof Student s) {
                     line = "Student," +
@@ -66,6 +47,9 @@ public class UserFileHandler {
                             t.getSalary() + "," +
                             t.getEmail() + "," +
                             t.getPassword();
+                } else {
+                    System.err.println("Skipping unsupported user type: " + user.getClass().getName());
+                    continue;
                 }
 
                 writer.write(line);
@@ -76,11 +60,18 @@ public class UserFileHandler {
         }
     }
 
+    /**
+     * Loads users from the file and reconstructs objects based on their type.
+     * @return a list of loaded {@link User} objects; empty if file is missing
+     * @throws RuntimeException if an I/O error occurs during loading
+     */
     public static List<User> loadUsers() {
         List<User> users = new ArrayList<>();
         File file = new File(FILE_PATH);
 
-        if (!file.exists()) { return  users; }
+        if (!file.exists()) {
+            return users;
+        }
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
 
@@ -104,7 +95,13 @@ public class UserFileHandler {
                 } else if (type.equals("Teacher") && data.length >= 8) {
                     String department = data[3];
                     String degree = data[4];
-                    double salary = Double.parseDouble(data[5]);
+                    double salary;
+                    try {
+                        salary = Double.parseDouble(data[5]);
+                    } catch (NumberFormatException ex) {
+                        System.err.println("Skipping invalid teacher salary: " + line);
+                        continue;
+                    }
                     String email = data[6];
                     String password = data[7];
                     users.add(new Teacher(name, surname, department, degree, salary, email, password));
