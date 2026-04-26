@@ -5,21 +5,26 @@ import ua.shid11.service.JournalService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ * Implementation of the {@link JournalService} for managing student grades.
+ * This service stores grades in an in-memory list.
+ */
 public class JournalServiceImpl implements JournalService {
 
     private final List<Grade> journal = new ArrayList<>();
 
+    /**
+     * Assigns a new grade to a student and adds it to the journal.
+     *
+     * @param studentId the unique identifier of the student
+     * @param subject   the name of the academic subject
+     * @param score     the score achieved by the student
+     * @throws IllegalArgumentException if the score validation fails in the Grade constructor
+     */
     @Override
     public void assignGrade(int studentId, String subject, int score) {
-
-        if (score < 0 || score > 100) {
-            throw new IllegalArgumentException("Grade must be between 0 and 100");
-        }
-
         Grade grade = new Grade(studentId, subject, score);
-
         journal.add(grade);
     }
 
@@ -28,6 +33,7 @@ public class JournalServiceImpl implements JournalService {
 
         return journal.stream()
                 .filter(g -> g.getStudentId() == studentId)
-                .collect(Collectors.toList());
+                .map(g -> new Grade(g.getStudentId(), g.getSubject(), g.getScore()))
+                .toList();
     }
 }

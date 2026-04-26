@@ -1,5 +1,6 @@
 package ua.shid11.security;
 
+import lombok.Getter;
 import ua.shid11.model.User;
 
 /**
@@ -7,6 +8,10 @@ import ua.shid11.model.User;
  * Provides static methods to track, login, and logout the user.
  */
 public class UserSession {
+    /**
+     * Return the currently logged-in {@link User} or null if none.
+     */
+    @Getter
     private static User currentUser = null;
 
     /**
@@ -33,10 +38,6 @@ public class UserSession {
         currentUser = null;
     }
 
-    /** @return the currently logged-in {@link User} or null if none. */
-    public static User getCurrentUser() {
-        return currentUser;
-    }
     /** @return true if a user is currently logged in. */
     public static boolean isAuthenticated() {
         return currentUser != null;

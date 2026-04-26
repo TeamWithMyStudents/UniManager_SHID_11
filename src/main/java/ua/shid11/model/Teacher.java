@@ -1,9 +1,16 @@
 package ua.shid11.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * Represents a teacher with academic attributes and salary.
  * Extends the {@link User} class with validation for department, degree, and salary.
  */
+@Getter
+@Setter
+@ToString
 public class Teacher extends User {
     private String department;
     private String degree;
@@ -33,43 +40,5 @@ public class Teacher extends User {
         } else {
             this.salary = 0;
         }
-    }
-
-    /** @return the academic department of the teacher. */
-    public String getDepartment() {
-        return department;
-    }
-
-    /** @param department the new department name. */
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    /** @return the teacher's academic degree. */
-    public String getDegree() {
-        return degree;
-    }
-
-    /** @param degree the new academic degree. */
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
-
-    /** @return the teacher's monthly salary. */
-    public double getSalary() {
-        return salary;
-    }
-
-    /** @param salary the new salary amount. */
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() +
-                ", department='" + department + '\'' +
-                ", degree='" + degree + '\'' +
-                ", salary=" + salary;
     }
 }

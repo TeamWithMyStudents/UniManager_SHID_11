@@ -37,6 +37,9 @@ public class Lesson {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String formattedTime = (time != null) ? time.format(formatter) : "null";
-        return "Lesson{" + "dayOfWeek=" + dayOfWeek + ", time=" + formattedTime + ", subject='" + subject + '\'' + ", teacherSurname='" + teacherSurname + '\'' + '}';
+        return "Lesson{" + "dayOfWeek=" + dayOfWeek +
+                ", time=" + formattedTime +
+                ", subject='" + subject + '\'' +
+                ", teacherSurname='" + teacherSurname + '\'' + '}';
     }
 }
