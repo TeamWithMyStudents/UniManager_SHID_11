@@ -39,4 +39,37 @@ public class JournalServiceImpl implements JournalService {
                 .map(g -> new Grade(g.getStudentId(), g.getSubject(), g.getScore()))
                 .toList();
     }
+
+    /**
+     * Generates a formatted academic report for a specific student.
+     * @return a formatted string containing all grades and the average score,
+     * or a message stating no grades are available.
+     */
+    @Override
+    public String generateRecordBook(int studentId) {
+        List<Grade> studentGrades = getGradesForStudent(studentId);
+        if (studentGrades.isEmpty()) {
+            return "No grades for this student";
+        }
+        StringBuilder reportBuilder = new StringBuilder();
+        reportBuilder.append("--- Record Book for Student ID: ")
+                     .append(studentId)
+                     .append(" ---\n");
+
+        double sum = 0;
+        for (Grade grade : studentGrades) {
+            reportBuilder.append("Subject: ")
+                         .append(grade.getSubject())
+                         .append(" | Score: ")
+                         .append(grade.getScore())
+                         .append("\n");
+            sum += grade.getScore();
+        }
+
+        double average = sum / studentGrades.size();
+        reportBuilder.append("Average Score: ")
+                .append(String.format("%.2f", average));
+
+        return reportBuilder.toString();
+    }
 }
