@@ -30,6 +30,6 @@ public class Student extends User {
                 ", name='" + getName() + '\'' +
                 ", surname='" + getSurname() + '\'' +
                 ", group='" + group + '\'' +
-                ", role='" + role.getDisplayName() + '\'' + '}';
+                ", role='" + (role != null ? role.getDisplayName() : "null") + '\'' + '}';
     }
 }

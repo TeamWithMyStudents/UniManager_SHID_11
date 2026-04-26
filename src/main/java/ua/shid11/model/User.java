@@ -9,17 +9,18 @@ import lombok.ToString;
  * Provides unique ID generation and common attributes like name, email, and password.
  */
 @Getter
-@Setter
 @ToString
 public abstract class User {
     private int id;
-    private String name;
-    private String surname;
+    @Setter private String name;
+    @Setter private String surname;
 
     @ToString.Exclude
+    @Setter
     private String email;
 
     @ToString.Exclude
+    @Setter
     private String password;
 
     private static int counter = 1;

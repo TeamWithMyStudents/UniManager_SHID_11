@@ -24,6 +24,9 @@ public class JournalServiceImpl implements JournalService {
      */
     @Override
     public void assignGrade(int studentId, String subject, int score) {
+        if (subject == null || subject.isBlank()){
+            throw new IllegalArgumentException("Subject must not be null or blank");
+        }
         Grade grade = new Grade(studentId, subject, score);
         journal.add(grade);
     }

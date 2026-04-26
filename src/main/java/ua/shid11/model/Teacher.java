@@ -10,7 +10,7 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class Teacher extends User {
     private String department;
     private String degree;
