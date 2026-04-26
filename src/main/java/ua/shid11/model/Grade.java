@@ -33,10 +33,10 @@ public class Grade {
     /**
      * Validates whether the provided score is within the acceptable range.
      *
-     * @param score the score value to check
+     * @param scoreValue the score value to check
      * @throws IllegalArgumentException if the score is less than 0 or greater than 100
      */
-    private void validateScore(int score) {
+    private void validateScore(int scoreValue) {
         if (score < 0 || score > 100) {
             throw new IllegalArgumentException("Grade must be between 0 and 100");
         }
