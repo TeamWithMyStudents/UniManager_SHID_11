@@ -1,46 +1,44 @@
 package ua.shid11.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+/**
+ * Represents a student's grade for a specific subject.
+ */
+@Getter
+@Setter
+@ToString
 public class Grade {
     private int studentId;
     private String subject;
     private int score;
 
+    /**
+     * Constructs a new Grade instance with score validation.
+     *
+     * @param studentId the unique ID of the student
+     * @param subject   the name of the subject
+     * @param score     the score achieved (must be between 0 and 100)
+     * @throws IllegalArgumentException if the score is outside the valid range
+     */
     public Grade(int studentId, String subject, int score) {
         this.studentId = studentId;
         this.subject = subject;
+        validateScore(score);
         this.score = score;
     }
 
-    public int getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    @Override
-    public String toString() {
-        return "Grade{" +
-                "studentId=" + studentId +
-                ", subject='" + subject + '\'' +
-                ", score=" + score +
-                '}';
+    /**
+     * Validates whether the provided score is within the acceptable range.
+     *
+     * @param score the score value to check
+     * @throws IllegalArgumentException if the score is less than 0 or greater than 100
+     */
+    private void validateScore(int score) {
+        if (score < 0 || score > 100) {
+            throw new IllegalArgumentException("Grade must be between 0 and 100");
+        }
     }
 }

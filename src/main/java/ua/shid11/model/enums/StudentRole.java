@@ -1,8 +1,11 @@
 package ua.shid11.model.enums;
 
+import lombok.Getter;
+
 /**
  * Represents the administrative roles a student can hold within a group.
  */
+@Getter
 public enum StudentRole {
     STAROSTA("Староста"),
     DEPUTY_STAROSTA("Заступник"),
@@ -14,7 +17,4 @@ public enum StudentRole {
         this.displayName = displayName;
     }
 
-    public String getDisplayName() {
-        return displayName;
-    }
 }
